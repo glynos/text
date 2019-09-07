@@ -3,7 +3,7 @@
 #ifndef PHD_TEXT_IS_UNICODE_POINT_HPP
 #define PHD_TEXT_IS_UNICODE_POINT_HPP
 
-#include <phd/text/text_forward.hpp>
+#include <phd/text/forward.hpp>
 
 #include <type_traits>
 

@@ -3,7 +3,7 @@
 #ifndef PHD_TEXT_IS_TRANSPARENT_ERROR_HANDLER_HPP
 #define PHD_TEXT_IS_TRANSPARENT_ERROR_HANDLER_HPP
 
-#include <phd/text/text_forward.hpp>
+#include <phd/text/forward.hpp>
 #include <phd/meta/is_detected.hpp>
 
 #include <type_traits>

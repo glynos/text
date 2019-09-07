@@ -4,7 +4,7 @@
 #define PHD_TEXT_BASIC_TEXT_HPP
 
 #include <phd/text/basic_text_view.hpp>
-#include <phd/text/text_forward.hpp>
+#include <phd/text/forward.hpp>
 #include <phd/text/text_traits.hpp>
 
 #include <string>

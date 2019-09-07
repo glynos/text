@@ -3,9 +3,8 @@
 #ifndef PHD_TEXT_BASIC_C_STRING_VIEW_HPP
 #define PHD_TEXT_BASIC_C_STRING_VIEW_HPP
 
-#include <phd/meta/remove_cv_ref.hpp>
-#include <phd/meta/always.hpp>
-#include <phd/text/text_forward.hpp>
+#include <phd/text/detail/type_traits.hpp>
+#include <phd/text/forward.hpp>
 #include <phd/text/char8_t.hpp>
 
 #include <string_view>
@@ -23,7 +22,7 @@ namespace phd {
 
 		template <typename C>
 		constexpr inline decltype(auto) __empty_string() noexcept {
-			static_assert(meta::always_false_v<C>, "unrecognized character type");
+			static_assert(detail::always_false_v<C>, "unrecognized character type");
 			return "";
 		}
 

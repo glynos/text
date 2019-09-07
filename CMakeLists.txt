@@ -49,7 +49,7 @@ option(PHD_TEXT_EXAMPLES "Enable build of examples" OFF)
 option(PHD_TEXT_BENCHMARKS "Enable build of benchmarks" OFF)
 
 # # Dependencies
-add_subdirectory(vendor/ooficode)
+#add_subdirectory(vendor/ooficode)
 
 set(phd.text.sources
 	"include/phd/text.hpp"

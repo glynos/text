@@ -10,7 +10,7 @@
 #include <phd/text/code_unit.hpp>
 
 #include <phd/meta/is_character.hpp>
-#include <phd/meta/remove_cv_ref.hpp>
+#include <phd/text/detail/type_traits.hpp>
 
 #include <range/v3/begin_end.hpp>
 #include <range/v3/view/bounded.hpp>

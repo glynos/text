@@ -9,7 +9,7 @@
 #include <phd/text/code_point.hpp>
 
 #include <phd/meta/is_character.hpp>
-#include <phd/meta/remove_cv_ref.hpp>
+#include <phd/text/detail/type_traits.hpp>
 
 #include <phd/text/c_string_view.hpp>
 

@@ -8,15 +8,9 @@
 #include <phd/text/state.hpp>
 #include <phd/text/code_unit.hpp>
 
-#include <phd/meta/is_character.hpp>
-#include <phd/meta/remove_cv_ref.hpp>
+#include <phd/text/detail/type_traits.hpp>
 
 #include <phd/text/c_string_view.hpp>
-
-#include <range/v3/core.hpp>
-#include <range/v3/empty.hpp>
-#include <range/v3/span.hpp>
-#include <range/v3/view/unbounded.hpp>
 
 namespace phd {
 

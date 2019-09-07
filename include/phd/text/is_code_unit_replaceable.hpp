@@ -3,7 +3,7 @@
 #ifndef PHD_TEXT_IS_CODE_UNIT_REPLACEABLE_HPP
 #define PHD_TEXT_IS_CODE_UNIT_REPLACEABLE_HPP
 
-#include <phd/text/text_forward.hpp>
+#include <phd/text/forward.hpp>
 #include <phd/meta/is_detected.hpp>
 
 #include <type_traits>

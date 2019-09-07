@@ -3,7 +3,7 @@
 #ifndef PHD_TEXT_UTF32_HPP
 #define PHD_TEXT_UTF32_HPP
 
-#include <phd/text/text_forward.hpp>
+#include <phd/text/forward.hpp>
 #include <phd/text/empty_state.hpp>
 #include <phd/text/code_unit.hpp>
 #include <phd/text/code_point.hpp>

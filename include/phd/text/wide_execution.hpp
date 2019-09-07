@@ -16,7 +16,7 @@
 #include <range/v3/range_traits.hpp>
 #include <range/v3/span.hpp>
 
-#include <phd/meta/remove_cv_ref.hpp>
+#include <phd/text/detail/type_traits.hpp>
 
 #include <cuchar>
 #include <cwchar>

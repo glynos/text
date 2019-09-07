@@ -15,7 +15,7 @@
 #include <range/v3/begin_end.hpp>
 #include <range/v3/range_traits.hpp>
 
-#include <phd/meta/remove_cv_ref.hpp>
+#include <phd/text/detail/type_traits.hpp>
 
 #include <array>
 

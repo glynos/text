@@ -1,5 +1,5 @@
 # # Dependencies (test-specific)
-add_subdirectory(../vendor/Catch2, "phd.text/tests/vendor/Catch2")
+add_subdirectory(../vendor/Catch2 "phd.text/tests/vendor/Catch2")
 
 # # Tests
 set(phd.text.test.sources
@@ -17,16 +17,17 @@ set(phd.text.test.sources
 add_executable(phd.text.test ${phd.text.test.sources})
 if (MSVC)
 	target_compile_options(phd.text.test
-		PRIVATE /std:c++latest /utf-8)
+		PRIVATE /std:c++latest /utf-8 /permissive- /experimental:preprocessor)
 else()
 	target_compile_options(phd.text.test
-		PRIVATE -std=c++2a)
+		PRIVATE -std=c++2a -Wall-Werror -Wpedantic)
 endif()
 target_include_directories(phd.text.test
 	PRIVATE 
 	"${CMAKE_CURRENT_SOURCE_DIR}/include")
 target_link_libraries(phd.text.test 
 	PRIVATE
+	phd::text
 	Catch2::Catch2
 	${CMAKE_DL_LIBS}
 )
