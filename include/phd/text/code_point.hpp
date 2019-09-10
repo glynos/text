@@ -5,16 +5,16 @@
 
 #include <phd/text/unicode_code_point.hpp>
 
-namespace phd {
+namespace phd::text {
 
-	template <typename __T>
+	template <typename _T>
 	struct encoding_code_point {
-		using type = typename __T::code_point;
+		using type = typename _T::code_point;
 	};
 
-	template <typename __T>
-	using encoding_code_point_t = typename encoding_code_point<__T>::type;
+	template <typename _T>
+	using encoding_code_point_t = typename encoding_code_point<_T>::type;
 
-} // namespace phd
+} // namespace phd::text
 
 #endif // PHD_TEXT_CODE_POINT_HPP

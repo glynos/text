@@ -3,32 +3,32 @@
 #ifndef PHD_TEXT_IS_TRANSPARENT_ERROR_HANDLER_HPP
 #define PHD_TEXT_IS_TRANSPARENT_ERROR_HANDLER_HPP
 
-#include <phd/text/forward.hpp>
-#include <phd/meta/is_detected.hpp>
+#include <phd/text/version.hpp>
+
+#include <phd/text/detail/type_traits.hpp>
 
 #include <type_traits>
 
-namespace phd {
-
-	inline namespace __abi_v0 {
-	namespace __text_detail {
-		template <typename __T>
-		using __is_ignorable_error_handler_test = decltype(__T::assume_valid);
+namespace phd::text { inline namespace PHD_TEXT_ABI_NAMESPACE {
+	namespace __detail {
+		template <typename _Type>
+		using __is_ignorable_error_handler_test = decltype(_Type::assume_valid);
 
 		template <typename, typename = void>
 		struct __is_ignorable_error_handler_sfinae : std::false_type {};
 
-		template <typename __T>
-		struct __is_ignorable_error_handler_sfinae<__T, std::enable_if_t<is_detected_v<__is_ignorable_error_handler_test, __T>>> : std::integral_constant<bool, __T::assume_valid::value> {};
-	}
-	} // namespace __abi_v0::__text_detail
+		template <typename _Type>
+		struct __is_ignorable_error_handler_sfinae<_Type,
+			std::enable_if_t<__detail::__is_detected_v<__is_ignorable_error_handler_test, _Type>>>
+		: std::integral_constant<bool, _Type::assume_valid::value> {};
+	} // namespace __detail
 
-	template <typename __T>
-	struct is_ignorable_error_handler : __text_detail::__is_ignorable_error_handler_sfinae<__T> {};
+	template <typename _Type>
+	struct is_ignorable_error_handler : __detail::__is_ignorable_error_handler_sfinae<_Type> {};
 
-	template <typename __T>
-	constexpr inline bool is_ignorable_error_handler_v = is_ignorable_error_handler<__T>::value;
+	template <typename _Type>
+	constexpr inline bool is_ignorable_error_handler_v = is_ignorable_error_handler<_Type>::value;
 
-} // namespace phd
+}} // namespace phd::text::PHD_TEXT_ABI_NAMESPACE
 
 #endif // PHD_TEXT_IS_TRANSPARENT_ERROR_HANDLER_HPP

@@ -3,7 +3,7 @@
 #ifndef PHD_TEXT_UNICODE_CODE_POINT_HPP
 #define PHD_TEXT_UNICODE_CODE_POINT_HPP
 
-namespace phd {
+namespace phd::text {
 
 	// TODO: what are the merits of a strong type here?
 	using unicode_code_point = char32_t;

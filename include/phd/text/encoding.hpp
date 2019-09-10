@@ -15,7 +15,7 @@
 #include <phd/text/encode.hpp>
 #include <phd/text/decode.hpp>
 
-namespace phd {
+namespace phd::text {
 
 	template <>
 	struct is_bitwise_transcoding_compatible<ascii, utf8> : std::true_type {};

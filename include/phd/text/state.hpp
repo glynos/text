@@ -3,15 +3,15 @@
 #ifndef PHD_TEXT_STATE_HPP
 #define PHD_TEXT_STATE_HPP
 
-namespace phd {
+namespace phd::text {
 
-	template <typename __T>
+	template <typename _T>
 	struct encoding_state {
-		using type = typename __T::state;
+		using type = typename _T::state;
 	};
 
-	template <typename __T>
-	using encoding_state_t = typename encoding_state<__T>::type;
+	template <typename _T>
+	using encoding_state_t = typename encoding_state<_T>::type;
 
 } // namespace phd
 

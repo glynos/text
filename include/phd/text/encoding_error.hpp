@@ -13,8 +13,7 @@
 #include <string>
 #include <exception>
 
-namespace phd {
-inline namespace __abi_v0 {
+namespace phd::text { inline namespace PHD_TEXT_ABI_NAMESPACE {
 
 	enum class encoding_errc : int {
 		// just fine
@@ -38,17 +37,15 @@ inline namespace __abi_v0 {
 	class encoding_error_category : public std::error_category {
 	public:
 #ifdef _MSC_VER
-		encoding_error_category() noexcept
-		: std::error_category() {
+		encoding_error_category() noexcept : std::error_category() {
 		}
 #else
-		constexpr encoding_error_category() noexcept
-		: std::error_category() {
+		constexpr encoding_error_category() noexcept : std::error_category() {
 		}
 #endif
 
 		virtual const char* name() const noexcept override {
-			return "encoding_error_category (__abi_v0)";
+			return "encoding_error_category (PHD_TEXT_ABI_NAMESPACE)";
 		}
 
 		virtual std::string message(int condition) const override {
@@ -72,7 +69,7 @@ inline namespace __abi_v0 {
 			case encoding_errc::invalid_trailing_sequence:
 				return "sequence follows valid leading code units with illegal code units"s;
 			default:
-				//std::unreachable();
+				// std::unreachable();
 				std::terminate();
 			}
 		}
@@ -98,12 +95,11 @@ inline namespace __abi_v0 {
 	inline std::error_condition make_error_condition(encoding_errc e) noexcept {
 		return std::error_condition(static_cast<int>(e), encoding_error_category());
 	}
-}
-} // namespace phd::__abi_v0
+}} // namespace phd::text::PHD_TEXT_ABI_NAMESPACE
 
 namespace std {
 	template <>
-	struct is_error_condition_enum<::phd::encoding_errc> : std::true_type {};
+	struct is_error_condition_enum<::phd::text::encoding_errc> : std::true_type {};
 } // namespace std
 
 #endif // PHD_TEXT_ENCODING_ERROR_HPP

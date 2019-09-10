@@ -3,35 +3,36 @@
 #ifndef PHD_TEXT_IS_FULL_RANGE_REPRESENTABLE_HPP
 #define PHD_TEXT_IS_FULL_RANGE_REPRESENTABLE_HPP
 
-#include <phd/text/forward.hpp>
-#include <phd/meta/is_detected.hpp>
+#include <phd/text/version.hpp>
+#include <phd/text/detail/type_traits.hpp>
 
 #include <type_traits>
 
-namespace phd {
+namespace phd::text { inline namespace PHD_TEXT_ABI_NAMESPACE {
 
-	inline namespace __abi_v0 {
-	namespace __text_detail {
-		template <typename __T>
-		using __is_encode_injective_test = decltype(T::is_encode_injective);
+	namespace __detail {
+		template <typename _Type>
+		using __is_encode_injective_test = decltype(_Type::is_encode_injective);
 
-		template <typename __T>
-		using __is_decode_injective_test = decltype(T::is_decode_injective);
+		template <typename _Type>
+		using __is_decode_injective_test = decltype(_Type::is_decode_injective);
 
 		template <typename, typename = void>
 		struct __is_full_range_representable_sfinae : std::false_type {};
 
-		template <typename __T>
-		struct __is_full_range_representable_sfinae<__T, std::enable_if_t<is_detected_v<__is_decode_injective_test, __T> && is_detected_v<__is_encode_injective_test, __T>>> : std::integral_constant<bool, __T::is_encode_injective::value && __T::is_decode_injective::value> {};
-	}
-	} // namespace __abi_v0::__text_detail
+		template <typename _Type>
+		struct __is_full_range_representable_sfinae<_Type,
+			std::enable_if_t<__detail::__is_detected_v<__is_decode_injective_test,
+			                      _Type> && __detail::__is_detected_v<__is_encode_injective_test, _Type>>>
+		: std::integral_constant<bool, _Type::is_encode_injective::value && _Type::is_decode_injective::value> {};
+	} // namespace __detail
 
-	template <typename __T>
-	struct is_full_range_representable : __text_detail::__is_full_range_representable_sfinae<__T> {};
+	template <typename _Type>
+	struct is_full_range_representable : __detail::__is_full_range_representable_sfinae<_Type> {};
 
-	template <typename __T>
-	constexpr inline bool is_full_range_representable_v = is_full_range_representable<__T>::value;
+	template <typename _Type>
+	constexpr inline bool is_full_range_representable_v = is_full_range_representable<_Type>::value;
 
-} // namespace phd
+}} // namespace phd::text::PHD_TEXT_ABI_NAMESPACE
 
 #endif // PHD_TEXT_IS_FULL_RANGE_REPRESENTABLE_HPP

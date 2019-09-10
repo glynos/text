@@ -3,12 +3,8 @@
 #ifndef PHD_TEXT_EMPTY_STATE_HPP
 #define PHD_TEXT_EMPTY_STATE_HPP
 
-namespace phd {
-inline namespace __abi_v0 {
-namespace __text_detail {
+namespace phd::text { inline namespace PHD_TEXT_ABI_NAMESPACE { namespace __detail {
 	struct __empty_state {};
-}
-}
-} // namespace phd::__abi_v0::__text_detail
+}}} // namespace phd::text::PHD_TEXT_ABI_NAMESPACE::__detail
 
 #endif // PHD_TEXT_EMPTY_STATE_HPP

@@ -6,31 +6,31 @@
 #include <phd/text/normalization.hpp>
 #include <phd/text/code_unit.hpp>
 
-namespace phd {
+namespace phd::text { inline namespace PHD_TEXT_ABI_NAMESPACE {
 
-	template <typename __Encoding, typename __NormalizationForm = nfkc, typename __Iterable = basic_c_string_view<encoding_code_unit_t<__Encoding>>>
+	template <typename _Encoding, typename _NormalizationForm = nfkc,
+		typename _Iterable = basic_c_string_view<encoding_code_unit_t<_Encoding>>>
 	class basic_text_view {
 	public:
-		using encoding_type = __Encoding;
-		using iterable_type = __Iterable;
+		using encoding_type  = _Encoding;
+		using container_type = _Iterable;
 
 	private:
-		iterable_type __mstorage;
+		container_type _M_storage;
 
 	public:
-		iterable_type&& storage() && {
-			return std::move(__mstorage);
+		container_type&& storage() && {
+			return ::std::move(this->_M_storage);
 		}
 
-		const iterable_type& storage() const& {
-			return __mstorage;
+		const container_type& storage() const& {
+			return this->_M_storage;
 		}
 
-		iterable_type& storage() & {
-			return __mstorage;
+		container_type& storage() & {
+			return this->_M_storage;
 		}
 	};
-
-} // namespace phd
+}} // namespace phd::text::PHD_TEXT_ABI_NAMESPACE
 
 #endif // PHD_TEXT_BASIC_TEXT_VIEW_HPP

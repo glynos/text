@@ -18,13 +18,13 @@
 #include <ciso646>
 #endif
 
-namespace phd { namespace windows {
+namespace phd::text { inline namespace PHD_TEXT_ABI_NAMESPACE { namespace __detail { namespace windows {
 
 	extern "C" {
 #include <Windows.h>
 	}
 
-	inline int determine_code_page() noexcept {
+	inline int __determine_active_code_page() noexcept {
 #if defined(_STL_LANG) || defined(_YVALS_CORE_H) || defined(_STDEXT)
 		if (___lc_codepage_func() == CP_UTF8) {
 			return CP_UTF8;
@@ -39,8 +39,7 @@ namespace phd { namespace windows {
 
 		return CP_ACP;
 	}
-}
-} // namespace phd::windows
+}}}} // namespace phd::text::PHD_TEXT_ABI_NAMESPACE::__detail::windows
 
 #pragma pop_macro("VC_EXTRALEAN")
 #pragma pop_macro("WIN32_LEAN_AND_MEAN")

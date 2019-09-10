@@ -49,18 +49,19 @@ option(PHD_TEXT_EXAMPLES "Enable build of examples" OFF)
 option(PHD_TEXT_BENCHMARKS "Enable build of benchmarks" OFF)
 
 # # Dependencies
-#add_subdirectory(vendor/ooficode)
+add_subdirectory(vendor/ooficode)
 
 set(phd.text.sources
 	"include/phd/text.hpp"
 
+	"include/phd/text/detail/adl.hpp"
+	"include/phd/text/detail/range.hpp"
 	"include/phd/text/detail/type_traits.hpp"
-	"include/phd/text/detail/unicode_detail.hpp"
+	"include/phd/text/detail/unicode.hpp"
 	"include/phd/text/detail/windows.hpp"
 
 	"include/phd/text/ascii.hpp"
 	"include/phd/text/basic_c_string_view.hpp"
-	"include/phd/text/basic_string_literal.hpp"
 	"include/phd/text/basic_text_view.hpp"
 	"include/phd/text/basic_text.hpp"
 	"include/phd/text/c_string_view.hpp"
@@ -81,7 +82,6 @@ set(phd.text.sources
 	"include/phd/text/is_unicode_code_point.hpp"
 	"include/phd/text/normalization.hpp"
 	"include/phd/text/state.hpp"
-	"include/phd/text/string_literal.hpp"
 	"include/phd/text/forward.hpp"
 	"include/phd/text/text_traits.hpp"
 	"include/phd/text/text_view.hpp"
@@ -95,6 +95,7 @@ set(phd.text.sources
 
 add_library(phd.text INTERFACE)
 add_library(phd::text ALIAS phd.text)
+target_link_libraries(phd.text INTERFACE oof::ooficode)
 target_include_directories(phd.text INTERFACE 
 	$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>  
 	$<INSTALL_INTERFACE:include>
@@ -109,10 +110,7 @@ else()
 		-std=c++2a
 	)
 endif()
-target_sources(phd.text INTERFACE 
-	$<BUILD_INTERFACE:${prefixed_phd.text.sources}>  
-	$<INSTALL_INTERFACE:${phd.text.sources}>
-)
+target_sources(phd.text INTERFACE ${phd.text.sources})
 #set_target_properties(phd.text
 #	PROPERTIES
 #	EXPORT_NAME phd::text

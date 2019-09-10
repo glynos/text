@@ -1,28 +1,26 @@
 #pragma once
 
-#ifndef PHD_TEXT_IS_POINT_UNIT_REPLACEABLE_HPP
-#define PHD_TEXT_IS_POINT_UNIT_REPLACEABLE_HPP
+#ifndef PHD_TEXT_IS_CODE_POINT_UNIT_REPLACEABLE_HPP
+#define PHD_TEXT_IS_CODE_POINT_UNIT_REPLACEABLE_HPP
 
-#include <phd/text/forward.hpp>
-#include <phd/meta/is_detected.hpp>
+#include <phd/text/version.hpp>
+
+#include <phd/text/detail/type_traits.hpp>
 
 #include <type_traits>
 
-namespace phd {
+namespace phd::text { inline namespace PHD_TEXT_ABI_NAMESPACE {
 
-	inline namespace __abi_v0 {
-	namespace __text_detail {
-		template <typename __T>
-		using __is_code_point_replaceable_test = decltype(__T::replacement_code_point);
-	}
-	} // namespace __abi_v0::__text_detail
+	namespace __detail {
+		template <typename _Type>
+		using __is_code_point_replaceable_test = decltype(_Type::replacement_code_point);
+	} // namespace __detail
 
-	template <typename __T>
-	struct is_code_point_replaceable : is_detected<__text_detail::__is_code_point_replaceable_test, __T> {};
+	template <typename _Type>
+	struct is_code_point_replaceable : __detail::__is_detected<__detail::__is_code_point_replaceable_test, _Type> {};
 
-	template <typename __T>
-	constexpr inline bool is_code_point_replaceable_v = is_code_point_replaceable<__T>::value;
+	template <typename _Type>
+	constexpr inline bool is_code_point_replaceable_v = is_code_point_replaceable<_Type>::value;
+}} // namespace phd::text::PHD_TEXT_ABI_NAMESPACE
 
-} // namespace phd
-
-#endif // PHD_TEXT_IS_POINT_UNIT_REPLACEABLE_HPP
+#endif // PHD_TEXT_IS_CODE_POINT_UNIT_REPLACEABLE_HPP

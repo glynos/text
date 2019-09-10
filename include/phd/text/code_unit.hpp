@@ -3,16 +3,18 @@
 #ifndef PHD_TEXT_CODE_UNIT_HPP
 #define PHD_TEXT_CODE_UNIT_HPP
 
-namespace phd {
+#include <phd/text/version.hpp>
 
-	template <typename __T>
+namespace phd::text { inline namespace PHD_TEXT_ABI_NAMESPACE {
+
+	template <typename _T>
 	struct encoding_code_unit {
-		using type = typename __T::code_unit;
+		using type = typename _T::code_unit;
 	};
 
-	template <typename __T>
-	using encoding_code_unit_t = typename encoding_code_unit<__T>::type;
+	template <typename _T>
+	using encoding_code_unit_t = typename encoding_code_unit<_T>::type;
 
-} // namespace phd
+}} // namespace phd::text::PHD_TEXT_ABI_NAMESPACE
 
 #endif // PHD_TEXT_CODE_UNIT_HPP

@@ -13,7 +13,7 @@
 #include <phd/text/is_code_point_replaceable.hpp>
 #include <phd/text/is_code_unit_replaceable.hpp>
 
-namespace phd {
+namespace phd::text {
 
 } // namespace phd
 
