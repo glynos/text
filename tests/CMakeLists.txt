@@ -4,10 +4,20 @@ add_subdirectory(../vendor/Catch2 "phd.text/tests/vendor/Catch2")
 # # Tests
 set(phd.text.test.sources
 	"source/decode.cpp"
+	"source/decode_view.cpp"
+
 	"source/encode.cpp"
+	"source/encode_view.cpp"
+
 	"source/transcode.cpp"
+	"source/transcode_view.cpp"
 	"source/errors.cpp"
+
+	"source/encoding_scheme.decode.cpp"
+	"source/encoding_scheme.encode.cpp"
+
 	"source/encoding.cpp"
+
 	"source/text.cpp"
 	"source/text_view.cpp"
 

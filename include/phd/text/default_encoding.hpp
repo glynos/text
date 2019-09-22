@@ -11,6 +11,7 @@
 #include <phd/text/utf32.hpp>
 #include <phd/text/execution.hpp>
 #include <phd/text/wide_execution.hpp>
+#include <phd/text/encoding_scheme.hpp>
 
 #include <phd/text/detail/type_traits.hpp>
 
@@ -49,6 +50,12 @@ namespace phd::text { inline namespace PHD_TEXT_ABI_NAMESPACE {
 	class default_encoding<char32_t> {
 	public:
 		using type = utf32;
+	};
+
+	template <>
+	class default_encoding<::std::byte> {
+	public:
+		using type = encoding_scheme<utf8, endian::native, ::std::byte>;
 	};
 
 	template <typename _Type>

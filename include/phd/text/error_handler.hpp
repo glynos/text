@@ -31,7 +31,7 @@ namespace phd::text { inline namespace PHD_TEXT_ABI_NAMESPACE {
 
 		template <bool __assume_validity = false>
 		struct __pass_through_text_error_handler_with {
-			using assume_valid = std::integral_constant<bool, __assume_validity>;
+			using assume_valid = ::std::integral_constant<bool, __assume_validity>;
 
 			template <typename _Encoding, typename Result>
 			constexpr auto operator()(const _Encoding&, Result __result) const {
@@ -48,12 +48,16 @@ namespace phd::text { inline namespace PHD_TEXT_ABI_NAMESPACE {
 	struct replacement_text_error_handler {
 		template <typename _Encoding, typename _InputRange, typename _OutputRange, typename _State>
 		constexpr auto operator()(
-			const _Encoding& enc, encode_result<_InputRange, _OutputRange, _State> __result) const {
+			const _Encoding& enc, encode_result<_InputRange, _OutputRange, _State> __result) const noexcept {
 			using _UOutputRange = __detail::__remove_cvref_t<_OutputRange>;
 
+			if (__result.error_code == encoding_errc::insufficient_output_space) {
+				// BAIL
+				return __result;
+			}
 			auto __outit   = __detail::__adl::__adl_begin(__result.output);
 			auto __outlast = __detail::__adl::__adl_end(__result.output);
-			if (__result.error_code == encoding_errc::insufficient_output_space || __outit == __outlast) {
+			if (__outit == __outlast) {
 				// BAIL
 				return __result;
 			}
@@ -61,7 +65,7 @@ namespace phd::text { inline namespace PHD_TEXT_ABI_NAMESPACE {
 			if constexpr (is_code_unit_replaceable_v<_Encoding>) {
 				(*__outit)      = _Encoding::replacement_code_unit;
 				__outit         = __detail::__next(__outit);
-				__result.output = _UOutputRange(std::move(__outit), std::move(__outlast));
+				__result.output = __detail::__reconstruct<_UOutputRange>(::std::move(__outit), ::std::move(__outlast));
 			}
 			else {
 				using __input_code_point = encoding_code_point_t<_Encoding>;
@@ -79,8 +83,8 @@ namespace phd::text { inline namespace PHD_TEXT_ABI_NAMESPACE {
 
 				_State __fresh_state{};
 				auto __encresult = enc.encode(
-					__wut_range, std::move(__result.output), __fresh_state, assume_valid_text_error_handler{});
-				__result.output = std::move(__encresult.output);
+					__wut_range, ::std::move(__result.output), __fresh_state, assume_valid_text_error_handler{});
+				__result.output = ::std::move(__encresult.output);
 			}
 
 			__result.error_code = encoding_errc::ok;
@@ -89,13 +93,18 @@ namespace phd::text { inline namespace PHD_TEXT_ABI_NAMESPACE {
 		}
 
 		template <typename _Encoding, typename _InputRange, typename _OutputRange, typename _State>
-		constexpr auto operator()(
-			const _Encoding&, decode_result<_InputRange, _OutputRange, _State> __result) const {
+		constexpr auto operator()(const _Encoding&, decode_result<_InputRange, _OutputRange, _State> __result) const
+			noexcept {
 			using __output_code_point = encoding_code_point_t<_Encoding>;
+			using _UOutputRange       = __detail::__remove_cvref_t<_OutputRange>;
+
+			if (__result.error_code == encoding_errc::insufficient_output_space) {
+				return __result;
+			}
 
 			auto __outit   = __detail::__adl::__adl_begin(__result.output);
 			auto __outlast = __detail::__adl::__adl_end(__result.output);
-			if (__result.error_code == encoding_errc::insufficient_output_space || __outit == __outlast) {
+			if (__outit == __outlast) {
 				// BAIL
 				return __result;
 			}
@@ -113,14 +122,23 @@ namespace phd::text { inline namespace PHD_TEXT_ABI_NAMESPACE {
 			}
 			__outit = __detail::__next(__outit);
 
-			__result.output     = _OutputRange(__outit, __outlast);
+			__result.output     = __detail::__reconstruct<_UOutputRange>(__outit, __outlast);
 			__result.error_code = encoding_errc::ok;
 
 			return __result;
 		}
 	};
 
-	using default_text_error_handler = replacement_text_error_handler;
+	class throw_text_error_handler {
+		template <typename _Encoding, typename _InputRange, typename _OutputRange, typename _State>
+		constexpr auto operator()(
+			const _Encoding& enc, encode_result<_InputRange, _OutputRange, _State> __result) const noexcept(false) {
+			// create error condition and throw
+			throw __result.error();
+		}
+	};
+
+	class default_text_error_handler : public replacement_text_error_handler {};
 }} // namespace phd::text::PHD_TEXT_ABI_NAMESPACE
 
 

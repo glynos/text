@@ -9,6 +9,19 @@
 
 namespace phd::text { inline namespace PHD_TEXT_ABI_NAMESPACE { namespace __detail {
 
+	template <typename _Type, typename = ::std::remove_cv_t<::std::remove_reference_t<_Type>>>
+	struct __unwrap_impl {
+		using type = _Type;
+	};
+
+	template <typename _Dummy, typename _Type>
+	struct __unwrap_impl<_Dummy, ::std::reference_wrapper<_Type>> {
+		using type = ::std::add_lvalue_reference_t<_Type>;
+	};
+
+	template <typename _Type>
+	using __unwrap_t = typename __unwrap_impl<_Type>::type;
+
 	template <typename>
 	class __always_false : public ::std::integral_constant<bool, false> {};
 

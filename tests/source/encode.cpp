@@ -1,5 +1,4 @@
-#include <phd/text/decode.hpp>
-#include <phd/text/encoding.hpp>
+#include <phd/text/encode.hpp>
 
 #include <catch2/catch.hpp>
 

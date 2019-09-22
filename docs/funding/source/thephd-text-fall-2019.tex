@@ -1,0 +1,120 @@
+\documentclass{wg21}
+
+\usepackage[utf8x]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{xcolor}
+\usepackage{soul}
+\usepackage{ulem}
+\usepackage{fullpage}
+\usepackage{cite}
+\usepackage{parskip}
+\usepackage{hyperref}
+\usepackage{csquotes}
+\usepackage{listings}
+\usepackage{minted}
+\usepackage{enumitem}
+\usepackage{minted}
+\usepackage{epigraph}
+
+\setlength{\epigraphwidth}{5.20in}
+
+\begin{document}
+
+\title{Towards Text in the Standard Library}
+\audience{Sponsors, Standard C++ Foundation, WG21 Direction Group}
+\author{JeanHeyd Meneide}{phdofthehouse@gmail.com}{Columbia University}
+\date{September 16th 2019}
+
+\maketitle
+
+\epigraph{This foundational work is needed in C++23 to enable non-experts to write ‘hello \inlineimg{earth.png}’.}{\textit{\\— Tom Honermann,\\Study Group 16 Chair}}
+
+Currently, C++ is bereft of the ability to go from legacy platform encodings to Unicode or even transform text between two encodings. This greatly inhibits C++ programs in communicating and inter-operating with external system resources. WG21's Direction Group in P0939 named Unicode and Text Processing one of its priorities for the coming years\cite{p0939}, for which the Committee created Study Group 16 (SG16). SG16 is the Unicode and Text Processing arm of C++ with the goal of having a coherent, seamless experience with respect to encoding, decoding, transcoding and producing useful Unicode algorithms. After advances in updating the Unicode Standard\cite{p1025} and \tcode{char8_t}\cite{p0482} for C++20, Study Group 16 is ready to tackle larger problems, particularly in the library space.
+
+Proposal P1629 Standard Text Encoding\cite{p1629} was written with the goal of tackling one such large problem. The paper is a synthesis examining implementation experience from several high quality, open source library implementations (Mozilla Firefox, International Components for Unicode (ICU)\cite{icu}, Boost.Text\cite{boost.text}, libogonek\cite{libogonek}, etc.) and implementers who have put much feedback into the system (Markus Scherer, Henri Sivonen, etc.).
+
+With all of this work and feedback\cite{p1629_feedback}, SG16 now attempts to turn ideas, specification, and guidance into viable implementation. This proposal requests funding to work on an implementation of text to be available for early 2020 and to work towards inclusion into C++ for the 2023 cycle.
+
+
+\section[background]{Background}
+
+I am a student at Columbia University who spends their free time working on high-quality C++ libraries\cite{sol2} and participating in C++ Standardization\cite{c++_standardization}. After engaging in a Library Working Group "Issues Processing" session during the 2018 Rapperswil-Jona C++ Standards Meeting at the HSR Hochschule für Technik Rapperswil, I realized that I could help contribute to the Standard Libraries that make C++ both fast and easy to use.
+
+After a successful Summer of Code 2019 with the Free Software Foundation working on Bit Abstractions for libstdc++\cite{c++_gsoc_2019}, I realized that the only way to reach Study Group 16's professed goal of making text encoding available in time for C++23 was to furnish a high-quality implementation of what would go into a C++23 Standard Library.
+
+I am an expert in API design for abstracting complex systems into easy to use libraries that:
+
+\begin{itemize}
+	\item do not forsake the performance characteristics of the low-level and complex solutions to "leave no lower level language below C++";
+	\item and, do not forsake the "Onion Principle" by providing incrementally easier layers that can be peeled off to get at the lower level details to avoid frustrating expert users.
+\end{itemize}
+
+SG16's Direction Paper\cite{p1238} has rated transcoding and normalization as the \#1 priority for forward progress in §5.1. Tom Honermann has specifically stated that P1629 and related work is a "high priority and target for early in C++23", with the proposal steadily building consensus in SG16 since the June 12th, 2019 SG16 Telecon Meeting\cite{sg16_telecon_june_12_2019}. Polls during SG16's inaugural meeting at the 2018 San Diego C++ Meeting ranked transcoding utilities at \#1, with a repeat of such a priority in the 2019 Kona C++ Meeting. The work being done here is important and foundational to success with Text in C++.
+
+My résumé is available upon request.
+
+
+\section[deliverables]{Implementation Deliverables}
+
+The ultimate deliverable of this proposal is production of a high-quality implementation of low-level text handling, with powerful and simple abstractions that can be used to further work being done towards Unicode algorithms in Standard C++:
+
+\begin{itemize}
+	\item \textsc{Correctness}. We are incredibly fortunate that there is a large Unicode Conformance test suite. Well-defined behavior is paramount and text is no exception to this rule.
+	\item \textsc{Extensibility}. User extension is key: C++ standard library implementers do not have the time to implement every single necessary encoding. They also do not know what internal or special encodings are used by individual companies, nor can the standard directly address their needs. Everyone should have a chance to supply additional encodings suitable for their workload.
+	\item \textsc{Performance}. If an implementation does not deliver acceptable speed by default, then it is not correct.
+\end{itemize}
+
+Unicode Algorithms need to work over code points, or scalar values (non-surrogate code points). Without the ability to for (safe) encoding and decoding from the world's various (legacy) encodings into Unicode, we lose the ability to transfer much of today's legacy text into Unicode. Lack of easily available utilities has been the biggest barrier to proper text handling in C++, and a standard solution is sorely needed.
+
+\pagebreak
+
+
+\subsection[goals]{Goals}
+
+The high-level goals are as follows:
+
+\begin{itemize}
+	\item Implementing encoding, decoding and transcoding iterators and views for walking (immutable) storage of encoded text to produce Unicode Code Points.
+	\item Implementing encoding, decoding and transcoding free functions for fast conversion from one text buffer to another.
+	\item Provide normalization forms C and D of both canonical and compatibility flavors as specified in UAX \#15\cite{uax_15}.
+\end{itemize}
+
+These goals were chosen due to their foundational independence from further work in Unicode. In particular, the three listed goals do not need to \emph{tackle locale and internationalization challenges in any way, shape or form}. This makes it a strong candidate for potential inclusion in C++23 and lets separate, parallel work continue on locales.
+
+
+\subsection[time frame]{Time Frame}
+
+If sufficient funding is received, the timeline for this proposal is 6-12 months. The targeted working time is 40 hours a week under full funding. This would produce 960 - 1400 hours of work. The use of such time is as follows:
+
+\begin{enumerate}
+	\item Implement basic \tcode{utf8}, \tcode{utf16}, \tcode{utf32}, \tcode{ascii} encoding objects: 40 hours.
+	\item Implement basic \tcode{wide_locale_execution} and \tcode{narrow_locale_execution} encoding objects: 40 hours. (\textsc{Note}: uses C standard functions for underlying implementation.)
+	\item Implement \tcode{encode_view}, \tcode{decode_view}, \tcode{transcode_view}, and corresponding iterator/sentinel pairs: 80 hours.
+	\item Implement \tcode{nf(k)c} normalization form, with iterators: 80 hours.
+	\item Implement \tcode{nf(k)d} normalization form, with iterators: 80 hours.
+	\item Implement \tcode{std::text::text_view<...>} and \tcode{std::text::text<...>} analogous types: 80 hours.
+	\item (\textsc{Stretch}) Implement Shift-JIS (ISO 2022-JP) as a library example of a stateful encoding: 60 hours.
+	\item (\textsc{Stretch}) Implement GB18030 as a library example of a Unicode Transformation Format that prioritizes compatibility with CJK (GBK) encodings: 80 hours.
+	\item Implement \tcode{encoding_scheme} objects for handling byte-oriented (network, file, etc.) streams: 35 hours.
+	\item Implement user extension ADL hooks for \tcode{decode}, \tcode{encode}, \tcode{transcode} and \tcode{transcode_one} : 35 hours.
+	\item Implement advanced \tcode{wide_locale_execution} and \tcode{narrow_locale_execution} encoding objects: 160 hours. (\textsc{Note}: Includes prying open relevant glibc and VC++ implementations of locale to properly transcode without loss of information from standards-compliant code on those platforms.)
+	\item Benchmarking: implement ICU\cite{icu}, \tcode{encoding_rs}\cite{encoding_rs}, and iconv\cite{iconv} for performance comparisons: 80 hours.
+	\item (\textsc{Stretch}) Implementing the Strong Exception Guarantee for \tcode{std::text::text<...>} type: 120 hours.
+	\item (\textsc{Stretch}) Fine-tuning using vectorization operations for transcoding pairs (UTF8 ↔ UTF16/32, ASCII → UTF8): 120 hours, any additional funding.
+	\item (\textsc{Stretch}) WHATWG encodings \cite{whatwg_encoding}: any additional funding.
+	\item (\textsc{Stretch}) Implement C free functions for transcoding between multi-byte and wide character literals and UTF8/16/32: any additional funding.
+\end{enumerate}
+
+Every milestone includes providing tests for the implementation, and progress on the original P1629 proposal. Times shown are rough estimates based on current implementation knowledge as well as examination of the cited implementations and documents. Desired implementation strategy is shown in approximate order of priority. Unless explicitly directed otherwise, funds will be put into each item on the list from the first (top) to the last (bottom) priority. \textsc{Stretch} goals are for if additional funding is available at that point in implementation progress, or if explicitly requested by a sponsor.
+
+
+\section[conclusion]{In Conclusion}
+
+I have the expertise, knowledge, and skills to deliver on the promise that text in C++ can be a powerful, fluid abstraction upon which many more expressive and wonderful algorithms may blossom.
+
+I humbly request your consideration for funding to accelerate the development of Study Group 16's mission and for the good of Standard C++. If you have any questions, please do not hesitate in reaching out to me.
+
+\bibliographystyle{unsrt}
+\bibliography{thephd-text-fall-2019}
+
+\end{document}

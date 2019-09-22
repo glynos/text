@@ -11,8 +11,8 @@ namespace phd::text { inline namespace PHD_TEXT_ABI_NAMESPACE {
 
 	template <typename _Type>
 	struct is_unicode_code_point
-	: std::integral_constant<bool,
-		  std::is_same_v<_Type, unicode_code_point> || std::is_same_v<_Type, unicode_scalar_value>> {};
+	: ::std::integral_constant<bool,
+		  ::std::is_same_v<_Type, unicode_code_point> || ::std::is_same_v<_Type, unicode_scalar_value>> {};
 
 	template <typename _Type>
 	constexpr inline bool is_unicode_code_point_v = is_unicode_code_point<_Type>::value;

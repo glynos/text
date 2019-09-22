@@ -71,12 +71,12 @@ namespace phd::text { inline namespace PHD_TEXT_ABI_NAMESPACE { namespace __deta
 		return (__value & __continuation_mask) == __continuation_signature;
 	}
 
-	inline constexpr bool __is_overlong(char32_t __value, std::size_t __bytes) {
+	inline constexpr bool __is_overlong(char32_t __value, ::std::size_t __bytes) {
 		return __value <= __last_1byte_value || (__value <= __last_2byte_value && __bytes > 2)
 			|| (__value <= __last_3byte_value && __bytes > 3);
 	}
 
-	inline constexpr bool __is_overlong_extended(char32_t __value, std::size_t __bytes) {
+	inline constexpr bool __is_overlong_extended(char32_t __value, ::std::size_t __bytes) {
 		return __value <= __last_1byte_value || (__value <= __last_2byte_value && __bytes > 2)
 			|| (__value <= __last_3byte_value && __bytes > 3) || (__value <= __last_4byte_value && __bytes > 4)
 			|| (__value <= __last_5byte_value && __bytes > 5);

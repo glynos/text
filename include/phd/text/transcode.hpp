@@ -27,28 +27,28 @@ namespace phd::text {
 		using _UOutput        = __detail::__remove_cvref_t<_Output>;
 		using _InputValueType = __detail::__range_value_type_t<_UInput>;
 		// using _OutputValueType = __detail::__range_value_type_t<_UOutput>;
-		using _WorkingInput  = std::conditional_t<std::is_array_v<_UInput>,
-               std::conditional_t<__detail::__is_character_v<_InputValueType>, basic_c_string_view<_InputValueType>,
-                    std::span<_InputValueType>>,
+		using _WorkingInput  = ::std::conditional_t<::std::is_array_v<_UInput>,
+               ::std::conditional_t<__detail::__is_character_v<_InputValueType>, basic_c_string_view<_InputValueType>,
+                    ::std::span<_InputValueType>>,
                _UInput>;
-		using _WorkingOutput = _UOutput; /*std::conditional_t<std::is_array_v<_UOutput>,
-		                                      std::span<_OutputValueType>, _UOutput>;*/
+		using _WorkingOutput = _UOutput; /*::std::conditional_t<::std::is_array_v<_UOutput>,
+		                                      ::std::span<_OutputValueType>, _UOutput>;*/
 
 		using _UEncodingFrom            = __detail::__remove_cvref_t<_EncodingFrom>;
 		using __intermediate_code_point = encoding_code_point_t<_UEncodingFrom>;
 
-		_WorkingInput __working_input(std::forward<_Input>(__input));
-		_WorkingOutput __working_output(std::forward<_Output>(__output));
+		_WorkingInput __working_input(::std::forward<_Input>(__input));
+		_WorkingOutput __working_output(::std::forward<_Output>(__output));
 
 		__intermediate_code_point __intermediary_storage[8 + 1];
-		std::span<__intermediate_code_point> __scratch_space(__intermediary_storage, 8);
+		::std::span<__intermediate_code_point> __scratch_space(__intermediary_storage, 8);
 		for (;;) {
 			auto __decode_result
 			     = __encoding_from.decode(__working_input, __scratch_space, __s_from, __error_handler_from);
 			if (__decode_result.error_code != encoding_errc::ok) {
 				break;
 			}
-			std::span<__intermediate_code_point> __intermediary_storage_used(
+			::std::span<__intermediate_code_point> __intermediary_storage_used(
 			     __intermediary_storage, __decode_result.output.data());
 			auto __encode_result
 			     = __encoding_to.encode(__intermediary_storage_used, __working_output, __s_to, __error_handler_to);
@@ -58,8 +58,8 @@ namespace phd::text {
 			if (__detail::__adl::__adl_empty(__decode_result.input)) {
 				break;
 			}
-			__working_input  = std::move(__decode_result.input);
-			__working_output = std::move(__encode_result.output);
+			__working_input  = ::std::move(__decode_result.input);
+			__working_output = ::std::move(__encode_result.output);
 		}
 	}
 
@@ -69,14 +69,14 @@ namespace phd::text {
 		using _UToEncoding = __detail::__remove_cvref_t<_EncodingTo>;
 		using __code_unit  = encoding_code_unit_t<_UToEncoding>;
 
-		std::basic_string<__code_unit> __output{};
-		if constexpr (__detail::__is_detected_v<__detail::__adl_size_test, _Input>) {
+		::std::basic_string<__code_unit> __output{};
+		if constexpr (__detail::__is_detected_v<__detail::__detect_adl_size, _Input>) {
 			// NOTE: any ol' estimate will do
 			__output.reserve(__detail::__adl::__adl_size(__input) / 2);
 		}
 
-		transcode_into(std::forward<_Input>(__input), phd::text::unbounded_view(std::back_inserter(__output)),
-		     std::forward<_EncodingFrom>(__encoding_from), std::forward<_EncodingTo>(__encoding_to), __s_from, __s_to,
+		transcode_into(::std::forward<_Input>(__input), phd::text::unbounded_view(::std::back_inserter(__output)),
+		     ::std::forward<_EncodingFrom>(__encoding_from), ::std::forward<_EncodingTo>(__encoding_to), __s_from, __s_to,
 		     phd::text::default_text_error_handler{}, phd::text::default_text_error_handler{});
 		return __output;
 	}
@@ -91,8 +91,8 @@ namespace phd::text {
 		_StateFrom __s_from{};
 		_StateTo __s_to{};
 
-		return transcode(std::forward<_Input>(__input), std::forward<_EncodingFrom>(__encoding_from),
-		     std::forward<_EncodingTo>(__encoding_to), __s_from, __s_to);
+		return transcode(::std::forward<_Input>(__input), ::std::forward<_EncodingFrom>(__encoding_from),
+		     ::std::forward<_EncodingTo>(__encoding_to), __s_from, __s_to);
 	}
 
 	template <typename _Input, typename _EncodingTo>
@@ -106,7 +106,7 @@ namespace phd::text {
 		_StateFrom __s_from{};
 		_StateTo __s_to{};
 
-		return transcode(std::forward<_Input>(__input), _UEncodingFrom{}, std::forward<_EncodingTo>(__encoding_to),
+		return transcode(::std::forward<_Input>(__input), _UEncodingFrom{}, ::std::forward<_EncodingTo>(__encoding_to),
 		     __s_from, __s_to);
 	}
 

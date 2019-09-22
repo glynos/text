@@ -34,22 +34,22 @@ namespace phd::text { inline namespace PHD_TEXT_ABI_NAMESPACE {
 		invalid_trailing_sequence = 0x07
 	};
 
-	class encoding_error_category : public std::error_category {
+	class encoding_error_category : public ::std::error_category {
 	public:
 #ifdef _MSC_VER
-		encoding_error_category() noexcept : std::error_category() {
+		encoding_error_category() noexcept : ::std::error_category() {
 		}
 #else
-		constexpr encoding_error_category() noexcept : std::error_category() {
+		constexpr encoding_error_category() noexcept : ::std::error_category() {
 		}
 #endif
 
 		virtual const char* name() const noexcept override {
-			return "encoding_error_category (PHD_TEXT_ABI_NAMESPACE)";
+			return "encoding_error_category (phd::text)";
 		}
 
-		virtual std::string message(int condition) const override {
-			using namespace std::string_literals;
+		virtual ::std::string message(int condition) const override {
+			using namespace ::std::string_literals;
 
 			switch (static_cast<encoding_errc>(condition)) {
 			case encoding_errc::ok:
@@ -69,8 +69,8 @@ namespace phd::text { inline namespace PHD_TEXT_ABI_NAMESPACE {
 			case encoding_errc::invalid_trailing_sequence:
 				return "sequence follows valid leading code units with illegal code units"s;
 			default:
-				// std::unreachable();
-				std::terminate();
+				// ::std::unreachable();
+				::std::terminate();
 			}
 		}
 	};
@@ -82,24 +82,24 @@ namespace phd::text { inline namespace PHD_TEXT_ABI_NAMESPACE {
 #endif
 
 #if 0
-	inline constexpr const std::error_category& encoding_category() {
+	inline constexpr const ::std::error_category& encoding_category() {
 		return __detail::__encoding_error_category;
 	}
 #else
-	inline const std::error_category& encoding_category() {
+	inline const ::std::error_category& encoding_category() {
 		static const encoding_error_category __val = encoding_error_category{};
 		return __val;
 	}
 #endif
 
-	inline std::error_condition make_error_condition(encoding_errc e) noexcept {
-		return std::error_condition(static_cast<int>(e), encoding_error_category());
+	inline ::std::error_condition make_error_condition(encoding_errc e) noexcept {
+		return ::std::error_condition(static_cast<int>(e), encoding_error_category());
 	}
 }} // namespace phd::text::PHD_TEXT_ABI_NAMESPACE
 
 namespace std {
 	template <>
-	struct is_error_condition_enum<::phd::text::encoding_errc> : std::true_type {};
+	struct is_error_condition_enum<::phd::text::encoding_errc> : ::std::true_type {};
 } // namespace std
 
 #endif // PHD_TEXT_ENCODING_ERROR_HPP

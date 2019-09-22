@@ -1,10 +1,11 @@
+#include <phd/text/decode_view.hpp>
 #include <phd/text/decode.hpp>
 
 #include <catch2/catch.hpp>
 
 #include <phd/text/tests/basic_unicode_strings.hpp>
 
-TEST_CASE("text/decode/core", "basic usages of decode function do not explode") {
+TEST_CASE("text/decode/decode_view", "one-at-a-time transcoding") {
 	SECTION("char") {
 		std::u32string result0 = phd::text::decode(phd::text::tests::ansi_sequence_truth, phd::text::execution{});
 		REQUIRE(result0 == phd::text::tests::u32_ansi_sequence_truth);

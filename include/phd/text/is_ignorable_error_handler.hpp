@@ -15,12 +15,12 @@ namespace phd::text { inline namespace PHD_TEXT_ABI_NAMESPACE {
 		using __is_ignorable_error_handler_test = decltype(_Type::assume_valid);
 
 		template <typename, typename = void>
-		struct __is_ignorable_error_handler_sfinae : std::false_type {};
+		struct __is_ignorable_error_handler_sfinae : ::std::false_type {};
 
 		template <typename _Type>
 		struct __is_ignorable_error_handler_sfinae<_Type,
-			std::enable_if_t<__detail::__is_detected_v<__is_ignorable_error_handler_test, _Type>>>
-		: std::integral_constant<bool, _Type::assume_valid::value> {};
+			::std::enable_if_t<__detail::__is_detected_v<__is_ignorable_error_handler_test, _Type>>>
+		: ::std::integral_constant<bool, _Type::assume_valid::value> {};
 	} // namespace __detail
 
 	template <typename _Type>

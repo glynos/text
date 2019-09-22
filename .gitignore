@@ -1,3 +1,11 @@
 build/
 .vscode/
 .mypy_cache/
+docs/funding/private/
+docs/**/*.xtr
+docs/**/*.synctex.gz
+docs/**/*.out
+docs/**/*.log
+docs/**/*.blg
+docs/**/*.aux
+docs/**/*.bbl

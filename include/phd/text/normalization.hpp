@@ -5,15 +5,17 @@
 
 namespace phd::text { inline namespace PHD_TEXT_ABI_NAMESPACE {
 
-	template <bool __is_compatibility>
-	struct __nfc;
-	template <bool __is_compatibility>
-	struct __nfkd;
+	namespace __detail {
+		template <bool __is_compatibility>
+		struct __nfc {};
+		template <bool __is_compatibility>
+		struct __nfd {};
+	} // namespace __detail
 
-	struct nfc;
-	struct nfd;
-	struct nfkc;
-	struct nfkd;
+	class nfc : public __detail::__nfc<false> {};
+	class nfd : public __detail::__nfd<false> {};
+	class nfkc : public __detail::__nfc<true> {};
+	class nfkd : public __detail::__nfd<true> {};
 
 }} // namespace phd::text::PHD_TEXT_ABI_NAMESPACE
 

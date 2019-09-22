@@ -16,6 +16,8 @@
 #ifdef _MSC_VER
 #include <cstddef>
 #include <ciso646>
+#include <cwchar>
+#include <locale>
 #endif
 
 namespace phd::text { inline namespace PHD_TEXT_ABI_NAMESPACE { namespace __detail { namespace windows {
@@ -26,6 +28,7 @@ namespace phd::text { inline namespace PHD_TEXT_ABI_NAMESPACE { namespace __deta
 
 	inline int __determine_active_code_page() noexcept {
 #if defined(_STL_LANG) || defined(_YVALS_CORE_H) || defined(_STDEXT)
+		// Removed in later versions of VC++
 		if (___lc_codepage_func() == CP_UTF8) {
 			return CP_UTF8;
 		}

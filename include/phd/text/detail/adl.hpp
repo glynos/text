@@ -86,7 +86,7 @@ namespace phd::text { inline namespace PHD_TEXT_ABI_NAMESPACE { namespace __deta
 	} // namespace __adl
 
 	template <typename _Range>
-	using __adl_size_test = decltype(__adl::__adl_size(::std::declval<::std::add_lvalue_reference_t<_Range>>()));
+	using __detect_adl_size = decltype(__adl::__adl_size(::std::declval<::std::add_lvalue_reference_t<_Range>>()));
 
 }}} // namespace phd::text::PHD_TEXT_ABI_NAMESPACE::__detail
 
