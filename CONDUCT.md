@@ -1,4 +1,4 @@
-`std::text` Contributor Code of Conduct
+`phd.text` Contributor Code of Conduct
 =======================================
 
 

@@ -13,17 +13,17 @@ Using advances from `std::ranges` and other foundational changes made in C++20, 
 This work has been presented about and talked about before. See:
 
 - Wednesday, March 7th, 2018 - A Rudimentary Unicode Abstraction
-  - [Slides](docs/presentations/2018.03.07 - a rudimentary unicode abstraction - ThePhD - SG16 2018.pdf)
+  - [Slides](docs/presentations/2018.03.07%20-%20a%20rudimentary%20unicode%20abstraction%20-%20ThePhD%20-%20SG16%202018.pdf)
 - Friday, September 20th, 2018 - Catching ⬆️ - The (Baseline) Unicode Plan for C++23 - ThePhD
   - Video (To be posted on YouTube in the CppCon Channel, soon)
   - [Abstract](https://cppcon2019.sched.com/event/7823aebeede8d50e1daa70b5c22ab0a4)
-  - [Slides](docs/presentations/2019.09.20 - Catching ⬆️ - The (Baseline) Unicode Plan for C++23 - ThePhD - CppCon 2019.pdf)
+  - [Slides](docs/presentations/2019.09.20%20-%20Catching%20⬆️%20-%20The%20(Baseline)%20Unicode%20Plan%20for%20C++23%20-%20ThePhD%20-%20CppCon%202019.pdf)
 
 
 
 # Current Plans
 
-The current roadmap is to obtain funding to make [the current goals](/docs/funding/2019.09.21 - Towards Text in the Standard Library - ThePhD.pdf) viable in time for standardization for C++23.
+The current roadmap is to obtain funding to make [the current goals](docs/funding/2019.09.21%20-%20Towards%20Text%20in%20the%20Standard%20Library%20-%20ThePhD.pdf) viable in time for standardization for C++23.
 
 Please considering sponsoring the work via [GitHub Sponsors](https://github.com/users/ThePhD/sponsorship) or [other avenues](https://thephd.github.io/support/) so that this can be finished to allow [Study Group 16 - Unicode](https://github.com/sg16-unicode/sg16) to further support for additional, groundbreaking Unicode facilities in the C++ Standard Library.
 
@@ -42,4 +42,4 @@ All Contributions are subject to a [Contributor License Agreement](LICENSE.CLA).
 This library is currently **dual-licensed**:
 
 - Non-Commercial use falls under the [GNU GPL v3](LICENSE).
-- Commercial use falls under a separate Corporate License when entities cannot fulfill the requirements of the GNU GPL v3. Please contact [JeanHeyd Meneide <phdofthehouse@gmail.com>](phdofthehouse@gmail.com) for further inquiry.
+- Commercial use falls under a separate Corporate License when entities cannot fulfill the requirements of the GNU GPL v3. Please contact JeanHeyd Meneide ([phdofthehouse@gmail.com](phdofthehouse@gmail.com)) for further inquiry.
