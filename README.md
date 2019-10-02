@@ -20,8 +20,26 @@ This work has been presented about and talked about before. See:
   - [Slides](docs/presentations/2019.09.20 - Catching ⬆️ - The (Baseline) Unicode Plan for C++23 - ThePhD - CppCon 2019.pdf)
 
 
+
 # Current Plans
 
 The current roadmap is to obtain funding to make [the current goals](/docs/funding/2019.09.21 - Towards Text in the Standard Library - ThePhD.pdf) viable in time for standardization for C++23.
 
-Please considering sponsoring the work via [GitHub Sponsors](https://github.com/users/ThePhD/sponsorship) or [other avenues](https://thephd.github.io/support/) so that this can be finished to allow [Study Group 16 - Unicode](https://github.com/sg16-unicode/sg16) to further support for additional, groundbreaking Unicode facilities in the C++ Standard Library.vV
+Please considering sponsoring the work via [GitHub Sponsors](https://github.com/users/ThePhD/sponsorship) or [other avenues](https://thephd.github.io/support/) so that this can be finished to allow [Study Group 16 - Unicode](https://github.com/sg16-unicode/sg16) to further support for additional, groundbreaking Unicode facilities in the C++ Standard Library.
+
+
+
+# Contributions and Conduct
+
+Anyone filing issues or thinking of making a contribution should be sure to read and thoroughly understand the required [Conduct](CONDUCT.md).
+
+All Contributions are subject to a [Contributor License Agreement](LICENSE.CLA).
+
+
+
+# Licenses
+
+This library is currently **dual-licensed**:
+
+- Non-Commercial use falls under the [GNU GPL v3](LICENSE).
+- Commercial use falls under a separate Corporate License when entities cannot fulfill the requirements of the GNU GPL v3. Please contact [JeanHeyd Meneide <phdofthehouse@gmail.com>](phdofthehouse@gmail.com) for further inquiry.
