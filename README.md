@@ -12,13 +12,12 @@ Using advances from `std::ranges` and other foundational changes made in C++20, 
 
 This work has been presented about and talked about before. See:
 
-- Wednesday, March 7th, 2018 - A Rudimentary Unicode Abstraction
-  - [Slides](docs/presentations/2018.03.07%20-%20a%20rudimentary%20unicode%20abstraction%20-%20ThePhD%20-%20SG16%202018.pdf)
-- Friday, September 20th, 2018 - Catching ⬆️ - The (Baseline) Unicode Plan for C++23 - ThePhD
+- Catching ⬆️ - The (Baseline) Unicode Plan for C++23 - ThePhD | Friday, September 20th, 2018 | CppCon 2019 | Aurora, Colorado
   - [Video](https://www.youtube.com/watch?v=BdUipluIf1E)
-  - [Abstract](https://cppcon2019.sched.com/event/7823aebeede8d50e1daa70b5c22ab0a4)
   - [Slides](docs/presentations/2019.09.20%20-%20Catching%20⬆️%20-%20The%20(Baseline)%20Unicode%20Plan%20for%20C++23%20-%20ThePhD%20-%20CppCon%202019.pdf)
-
+  - [Abstract](https://cppcon2019.sched.com/event/7823aebeede8d50e1daa70b5c22ab0a4)
+- A Rudimentary Unicode Abstraction - ThePhD | Wednesday, March 7th, 2018 | Study Group 16 | Boston, Massachusetts
+  - [Slides](docs/presentations/2018.03.07%20-%20a%20rudimentary%20unicode%20abstraction%20-%20ThePhD%20-%20SG16%202018.pdf)
 
 
 # Current Plans
