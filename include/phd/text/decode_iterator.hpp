@@ -1,4 +1,29 @@
+// ============================================================================
+//
+// phd.text
+// Copyright © 2019 JeanHeyd "ThePhD" Meneide
+// Contact: phdofthehouse@gmail.com
+//
+// Commercial License Usage
+// Licensees holding valid commercial phd.text licenses may use this file in
+// accordance with the commercial license agreement provided with the
+// Software or, alternatively, in accordance with the terms contained in
+// a written agreement between you and JeanHeyd "ThePhD" Meneide.
+// For licensing terms and conditions see your agreement. For
+// further information contact phdofthehouse@gmail.com.
+//
+// GNU General Public License Usage
+// Alternatively, this file may be used under the terms of GNU General
+// Public license version 3. The licenses are as published by the Free
+// Software Foundation and appearing in the file LICENSE included in the
+// packaging of this file. Please review the following information to
+// ensure the GNU General Public License requirements will
+// be met: https://www.gnu.org/licenses/gpl-3.0.html.
+//
+// ============================================================================
+
 #pragma once
+
 #ifndef PHD_TEXT_DECODE_ITERATOR_HPP
 #define PHD_TEXT_DECODE_ITERATOR_HPP
 
@@ -40,11 +65,11 @@ namespace phd::text { inline namespace PHD_TEXT_ABI_NAMESPACE {
 		using difference_type = __detail::__iterator_difference_type_t<__base_iterator>;
 
 		// constructors
-		decode_iterator()                       = delete;
+		decode_iterator() = delete;
 
 		decode_iterator(const decode_iterator&) = default;
 
-		decode_iterator(decode_iterator&&)      = default;
+		decode_iterator(decode_iterator&&) = default;
 
 		decode_iterator(range_type __range)
 		: decode_iterator(::std::move(__range), encoding_type{}, error_handler_type{}) {
@@ -72,7 +97,7 @@ namespace phd::text { inline namespace PHD_TEXT_ABI_NAMESPACE {
 		const encoding_type& encoding() const {
 			return this->_M_encoding;
 		}
-		
+
 		encoding_type& encoding() {
 			return this->_M_encoding;
 		}
@@ -93,7 +118,7 @@ namespace phd::text { inline namespace PHD_TEXT_ABI_NAMESPACE {
 			return this->_M_handler;
 		}
 
-		range_type base() const & {
+		range_type base() const& {
 			return this->_M_state;
 		}
 

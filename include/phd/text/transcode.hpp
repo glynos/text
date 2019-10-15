@@ -1,3 +1,27 @@
+// ============================================================================
+//
+// phd.text
+// Copyright © 2019 JeanHeyd "ThePhD" Meneide
+// Contact: phdofthehouse@gmail.com
+//
+// Commercial License Usage
+// Licensees holding valid commercial phd.text licenses may use this file in
+// accordance with the commercial license agreement provided with the
+// Software or, alternatively, in accordance with the terms contained in
+// a written agreement between you and JeanHeyd "ThePhD" Meneide.
+// For licensing terms and conditions see your agreement. For
+// further information contact phdofthehouse@gmail.com.
+//
+// GNU General Public License Usage
+// Alternatively, this file may be used under the terms of GNU General
+// Public license version 3. The licenses are as published by the Free
+// Software Foundation and appearing in the file LICENSE included in the
+// packaging of this file. Please review the following information to
+// ensure the GNU General Public License requirements will
+// be met: https://www.gnu.org/licenses/gpl-3.0.html.
+//
+// ============================================================================
+
 #pragma once
 
 #ifndef PHD_TEXT_TRANSCODE_HPP
@@ -76,8 +100,8 @@ namespace phd::text {
 		}
 
 		transcode_into(::std::forward<_Input>(__input), phd::text::unbounded_view(::std::back_inserter(__output)),
-		     ::std::forward<_EncodingFrom>(__encoding_from), ::std::forward<_EncodingTo>(__encoding_to), __s_from, __s_to,
-		     phd::text::default_text_error_handler{}, phd::text::default_text_error_handler{});
+		     ::std::forward<_EncodingFrom>(__encoding_from), ::std::forward<_EncodingTo>(__encoding_to), __s_from,
+		     __s_to, phd::text::default_text_error_handler{}, phd::text::default_text_error_handler{});
 		return __output;
 	}
 
@@ -106,8 +130,8 @@ namespace phd::text {
 		_StateFrom __s_from{};
 		_StateTo __s_to{};
 
-		return transcode(::std::forward<_Input>(__input), _UEncodingFrom{}, ::std::forward<_EncodingTo>(__encoding_to),
-		     __s_from, __s_to);
+		return transcode(::std::forward<_Input>(__input), _UEncodingFrom{},
+		     ::std::forward<_EncodingTo>(__encoding_to), __s_from, __s_to);
 	}
 
 } // namespace phd::text

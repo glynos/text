@@ -1,3 +1,27 @@
+// ============================================================================
+//
+// phd.text
+// Copyright © 2019 JeanHeyd "ThePhD" Meneide
+// Contact: phdofthehouse@gmail.com
+//
+// Commercial License Usage
+// Licensees holding valid commercial phd.text licenses may use this file in
+// accordance with the commercial license agreement provided with the
+// Software or, alternatively, in accordance with the terms contained in
+// a written agreement between you and JeanHeyd "ThePhD" Meneide.
+// For licensing terms and conditions see your agreement. For
+// further information contact phdofthehouse@gmail.com.
+//
+// GNU General Public License Usage
+// Alternatively, this file may be used under the terms of GNU General
+// Public license version 3. The licenses are as published by the Free
+// Software Foundation and appearing in the file LICENSE included in the
+// packaging of this file. Please review the following information to
+// ensure the GNU General Public License requirements will
+// be met: https://www.gnu.org/licenses/gpl-3.0.html.
+//
+// ============================================================================
+
 #pragma once
 
 #ifndef PHD_TEXT_UTF8_HPP
@@ -177,8 +201,8 @@ namespace phd::text { inline namespace PHD_TEXT_ABI_NAMESPACE {
 					(void)__outlast;
 				}
 
-				code_unit __b0     = __detail::__dereference(__init);
-				__init             = __detail::__next(__init);
+				code_unit __b0       = __detail::__dereference(__init);
+				__init               = __detail::__next(__init);
 				::std::size_t length = __detail::__sequence_length(static_cast<char8_t>(__b0));
 
 				if constexpr (!__overlong_allowed) {
